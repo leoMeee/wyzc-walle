@@ -65,7 +65,7 @@ use yii\helpers\Url;
                             <span class="lbl"></span>
                         </label>
                     <?php } ?>
-                    <?php if ($item['user_id'] == \Yii::$app->user->id) { ?>
+                    <?php if ($audit) { ?>
                         <!-- 通过审核可以上线的任务-->
                         <?php if (Task::canDeploy($item['status'])) { ?>
                             <a href="<?= Url::to("@web/walle/deploy?taskId={$item['id']}") ?>" class="green">
@@ -107,6 +107,9 @@ use yii\helpers\Url;
                 function(data) {
                     if (data.code == 0) {
                         $this.closest('td').prev().text(data.data.status);
+                        setTimeout(function () {
+                            window.location.reload();
+                        },500);
                     } else {
                         alert(data.msg);
                     }
