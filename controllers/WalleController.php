@@ -18,6 +18,7 @@ use app\components\Task as WalleTask;
 use app\models\Project;
 use app\models\Record;
 use app\models\Task as TaskModel;
+use app\models\Group;
 use yii;
 
 class WalleController extends Controller {
@@ -63,9 +64,11 @@ class WalleController extends Controller {
         if (!$this->task) {
             throw new \Exception(yii::t('walle', 'deployment id not exists'));
         }
-        if ($this->task->user_id != $this->uid) {
+
+        if (!Group::isAuditAdmin($this->uid, $this->task->project_id)) {
             throw new \Exception(yii::t('w', 'you are not master of project'));
         }
+
         // 任务失败或者审核通过时可发起上线
         if (!in_array($this->task->status, [TaskModel::STATUS_PASS, TaskModel::STATUS_FAILED])) {
             throw new \Exception(yii::t('walle', 'deployment only done for once'));
@@ -337,7 +340,8 @@ class WalleController extends Controller {
         if (!$this->task) {
             throw new \Exception(yii::t('walle', 'deployment id not exists'));
         }
-        if ($this->task->user_id != $this->uid) {
+
+        if (!Group::isAuditAdmin($this->uid, $this->task->project_id)) {
             throw new \Exception(yii::t('w', 'you are not master of project'));
         }
 

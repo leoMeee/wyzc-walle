@@ -114,12 +114,14 @@ class TaskController extends Controller {
         if (!$task) {
             throw new \Exception(yii::t('task', 'unknown deployment bill'));
         }
-        if ($task->user_id != $this->uid) {
+        if (!Group::isAuditAdmin($this->uid, $task->project_id)) {
             throw new \Exception(yii::t('w', 'you are not master of project'));
         }
+
         if ($task->status == Task::STATUS_DONE) {
             throw new \Exception(yii::t('task', 'can\'t delele the job which is done'));
         }
+
         if (!$task->delete()) throw new \Exception(yii::t('w', 'delete failed'));
         $this->renderJson([]);
 
