@@ -16,8 +16,6 @@ Walle 一个web部署系统工具，配置简单、功能完善、界面流畅�
 安装
 ------------
 
-    git clone http://192.168.3.9/wyzc/walle.git
-    cd walle
     composer install --prefer-dist --no-dev --optimize-autoloader -vvvv
     ./yii walle/setup
 
