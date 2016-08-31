@@ -49,6 +49,7 @@ class AddUserForm extends Model {
             // 给默认头像
             $user->status = User::STATUS_ACTIVE;
             $user->avatar = 'default.jpg';
+            $user->is_email_verified = 1;
 
             if ($user->save()) {
                 return $user;
