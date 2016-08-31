@@ -344,7 +344,6 @@ class WalleController extends Controller {
         if (!Group::isAuditAdmin($this->uid, $this->task->project_id)) {
             throw new \Exception(yii::t('w', 'you are not master of project'));
         }
-
         return $this->render('deploy', [
             'task' => $this->task,
         ]);

@@ -29,6 +29,7 @@ use yii\helpers\Url;
             ：
             <?= $task->title ?>
             （<?= $task->project->repo_mode . ':' . $task->branch ?> <?= yii::t('walle', 'version') ?><?= $task->commit_id ?>）
+            （提交者:<?=$task->user->realname?>）
             <?php if (in_array($task->status, [Task::STATUS_PASS, Task::STATUS_FAILED])) { ?>
                 <button type="submit" class="btn btn-primary btn-deploy" data-id="<?= $task->id ?>"><?= yii::t('walle', 'deploy') ?></button>
             <?php } ?>
