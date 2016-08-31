@@ -138,9 +138,11 @@ class TaskController extends Controller {
         if (!$this->task) {
             throw new \Exception(yii::t('task', 'unknown deployment bill'));
         }
-        if ($this->task->user_id != $this->uid) {
+
+        if (!Group::isAuditAdmin($this->uid, $this->task->project_id)) {
             throw new \Exception(yii::t('w', 'you are not master of project'));
         }
+
         if ($this->task->ex_link_id == $this->task->link_id) {
             throw new \Exception(yii::t('task', 'no rollback twice'));
         }
