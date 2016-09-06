@@ -39,7 +39,12 @@ $this->title = yii::t('walle', 'md5 title');
     <div class="alert alert-warning " >
         此功能的作用是查询线上文件的 md5 值,是否与本地文件的md5值相同. 如果不同,说明线上与本地代码有差异.
         <br/>
-        可以使用 `md5 文件名` 命令查询本地文件md5值
+        查询本地文件md5值:
+        <br/>
+        <ul>
+            <li> linux: `md5sum 文件名`</li>
+            <li>  mac: `md5 文件名`</li>
+        </ul>
     </div>
 </div>
 
