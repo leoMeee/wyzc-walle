@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7dfc8976d91f51cb0c56adfc4b6ae1d",
-    "content-hash": "10612994b1916890801c24be609b8acd",
+    "hash": "927adcec61184ed8945cf6e3c68ed3f6",
+    "content-hash": "18e8124cb717832da13932d166e5dbb7",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -298,6 +298,92 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "lspbupt/yii2-curl",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/buptlsp/yii2-curl.git",
+                "reference": "c5815f1b97048990afddc07eefdb5f0fbf5b169d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/buptlsp/yii2-curl/c5815f1b97048990afddc07eefdb5f0fbf5b169d.zip",
+                "reference": "c5815f1b97048990afddc07eefdb5f0fbf5b169d",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "lspbupt\\curl\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "李仕鹏",
+                    "email": "lspbupt@sina.com"
+                }
+            ],
+            "description": "A curl encapsulation for yii2 framework",
+            "homepage": "https://github.com/buptlsp/yii2-curl",
+            "keywords": [
+                "curl",
+                "extension",
+                "yii2"
+            ],
+            "time": "2016-04-08 12:24:07"
+        },
+        {
+            "name": "lspbupt/yii2-dingtalk",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/buptlsp/yii2-dingtalk.git",
+                "reference": "6f52f8697c1e9ef2a13fb695aee9814789ceca2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/buptlsp/yii2-dingtalk/6f52f8697c1e9ef2a13fb695aee9814789ceca2d.zip",
+                "reference": "6f52f8697c1e9ef2a13fb695aee9814789ceca2d",
+                "shasum": ""
+            },
+            "require": {
+                "lspbupt/yii2-curl": "*",
+                "yiisoft/yii2": "2.0.7"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "lspbupt\\dingtalk\\": ""
+                },
+                "classmap": [
+                    "widgets/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GNU"
+            ],
+            "authors": [
+                {
+                    "name": "李仕鹏",
+                    "email": "lspbupt@sina.com"
+                }
+            ],
+            "description": "dingtalk API for yii2 framework",
+            "homepage": "https://github.com/buptlsp/yii2-dingtalk",
+            "keywords": [
+                "dingding",
+                "dingtalk",
+                "extension",
+                "yii2"
+            ],
+            "time": "2016-04-22 16:04:26"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1184,6 +1270,56 @@
                 "object graph"
             ],
             "time": "2015-11-07 22:20:37"
+        },
+        {
+            "name": "nategood/httpful",
+            "version": "0.2.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nategood/httpful.git",
+                "reference": "c1cd4d46a4b281229032cf39d4dd852f9887c0f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/nategood/httpful/c1cd4d46a4b281229032cf39d4dd852f9887c0f6.zip",
+                "reference": "c1cd4d46a4b281229032cf39d4dd852f9887c0f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Httpful": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nate Good",
+                    "email": "me@nategood.com",
+                    "homepage": "http://nategood.com"
+                }
+            ],
+            "description": "A Readable, Chainable, REST friendly, PHP HTTP Client",
+            "homepage": "http://github.com/nategood/httpful",
+            "keywords": [
+                "api",
+                "curl",
+                "http",
+                "requests",
+                "rest",
+                "restful"
+            ],
+            "time": "2015-10-26 16:11:30"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

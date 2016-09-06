@@ -11,7 +11,8 @@
         "yiisoft/yii2": ">=2.0.4",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "vlucas/phpdotenv": "^2.3"
+        "vlucas/phpdotenv": "^2.3",
+        "lspbupt/yii2-dingtalk": "*"
     },
     "require-dev": {
         "codeception/codeception": "2.1.2",

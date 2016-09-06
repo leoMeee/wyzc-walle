@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use app\components\GlobalHelper;
+use app\components\DingTalk;
 
 /**
  * This is the model class for table "task".
@@ -44,7 +45,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * 任务通过
      */
-    const STATUS_PASS   = 1;
+    const STATUS_PASS = 1;
 
     /**
      * 任务拒绝
@@ -54,7 +55,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * 任务上线完成
      */
-    const STATUS_DONE   = 3;
+    const STATUS_DONE = 3;
 
     /**
      * 任务上线失败
@@ -64,7 +65,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * 可回滚
      */
-    const ROLLBACK_TRUE  = 1;
+    const ROLLBACK_TRUE = 1;
 
     /**
      * 不可回滚
@@ -143,7 +144,8 @@ class Task extends \yii\db\ActiveRecord
      * @param $status
      * @return bool
      */
-    public static function canDeploy($status) {
+    public static function canDeploy($status)
+    {
         return in_array($status, [static::STATUS_PASS, static::STATUS_FAILED]);
     }
 
@@ -152,7 +154,8 @@ class Task extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
@@ -161,7 +164,8 @@ class Task extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProject() {
+    public function getProject()
+    {
         return $this->hasOne(Project::className(), ['id' => 'project_id']);
     }
 
@@ -170,7 +174,8 @@ class Task extends \yii\db\ActiveRecord
      *
      * @return array|string
      */
-    public function getCommandFiles() {
+    public function getCommandFiles()
+    {
 
         if ($this->file_transmission_mode == static::FILE_TRANSMISSION_MODE_FULL) {
             return '.';
@@ -184,5 +189,4 @@ class Task extends \yii\db\ActiveRecord
             throw new \InvalidArgumentException('file list empty');
         }
     }
-
 }

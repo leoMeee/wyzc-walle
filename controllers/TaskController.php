@@ -8,6 +8,7 @@ use app\components\Controller;
 use app\models\Task;
 use app\models\Project;
 use app\models\Group;
+use app\components\DingTalk;
 
 class TaskController extends Controller {
 
@@ -91,6 +92,9 @@ class TaskController extends Controller {
                 $task->project_id = $projectId;
                 $task->status = $status;
                 if ($task->save()) {
+                    $title = '上线审核申请 ['.$task->project->name.']';
+                    $message = $task->user->realname.'申请 ['.$task->project->name.'] 部署上线,请相关管理员审核!';
+                    DingTalk::sendMsg($title, $message,DingTalk::TYPE_APPLY);
                     return $this->redirect('@web/task/');
                 }
             }
