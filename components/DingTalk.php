@@ -22,7 +22,7 @@ class DingTalk
 
     public static function sendMsg($title, $message, $type)
     {
-        $message_url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'];
+        $message_url = 'http://walle.gkk.cn';
         $picUrl = '';
         switch ($type) {
             case self::TYPE_APPLY:
