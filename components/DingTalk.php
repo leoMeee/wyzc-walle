@@ -11,7 +11,7 @@ class DingTalk
     // 从磊id manager5484
     const WALLE_CHAT_ID = 'chat10b0fbd7ef564e3de3ecf4418183f514';
 
-    const APPLY_PIC = '@lALObsa2QEBA';
+    const APPLY_PIC = '@lALObtTrDkBA';
     const APPLY_SUCCESS_PIC = '@lALObr3c4EBA';
     const APPLY_FAIL_PIC = '@lALObscdqUBA';
 
