@@ -119,7 +119,7 @@ class WalleController extends Controller
             $this->conf->version = $this->task->link_id;
             $this->conf->save();
             $title = '['.$this->task->project->name.'] 项目上线成功';
-            $message = '['.$this->task->project->name.'] 项目上线成功了! 请相关人员请知悉';
+            $message = '['.$this->task->project->name.'] 项目上线成功了! 请相关人员知悉';
             DingTalk::sendMsg($title, $message, DingTalk::TYPE_DEPLOY_SUCCESS);
 
             return $this->redirect('@web/task/');
