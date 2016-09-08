@@ -118,7 +118,7 @@ class WalleController extends Controller
             // 记录当前线上版本（软链）回滚则是回滚的版本，上线为新版本
             $this->conf->version = $this->task->link_id;
             $this->conf->save();
-            $title = '['.$this->task->project->name.'] 项目上线成功';
+            $title = '['.$this->task->project->name.'] 项目上线成功 [版本号:'.$this->task->commit_id.']';
             $message = '['.$this->task->project->name.'] 项目上线成功了! 请相关人员知悉. 上线标题: `'.$this->task->title.'`';
             DingTalk::sendMsg($title, $message, DingTalk::TYPE_DEPLOY_SUCCESS);
 
@@ -128,7 +128,7 @@ class WalleController extends Controller
             $this->task->save();
             // 清理本地部署空间
             $this->_cleanUpLocal($this->task->link_id);
-            $title = '['.$this->task->project->name.'] 项目上线失败';
+            $title = '['.$this->task->project->name.'] 项目上线失败 [版本号:'.$this->task->commit_id.']';
             $message = '['.$this->task->project->name.'] 项目上线失败了! 原因: '.$e->getMessage();
             DingTalk::sendMsg($title, $message, DingTalk::TYPE_DEPLOY_FAIL);
             throw $e;

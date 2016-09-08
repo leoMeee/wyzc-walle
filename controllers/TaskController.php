@@ -10,7 +10,8 @@ use app\models\Project;
 use app\models\Group;
 use app\components\DingTalk;
 
-class TaskController extends Controller {
+class TaskController extends Controller
+{
 
     protected $task;
 
@@ -21,7 +22,8 @@ class TaskController extends Controller {
      * @param int $size
      * @return string
      */
-    public function actionIndex($page = 1, $size = 10) {
+    public function actionIndex($page = 1, $size = 10)
+    {
         $size = $this->getParam('per-page') ?: $size;
         $list = Task::find()
             ->with('user')
@@ -36,18 +38,22 @@ class TaskController extends Controller {
 
         $kw = \Yii::$app->request->post('kw');
         if ($kw) {
-            $list->andWhere(['or', "commit_id like '%" . $kw . "%'", "title like '%" . $kw . "%'"]);
+            $list->andWhere(['or', "commit_id like '%".$kw."%'", "title like '%".$kw."%'"]);
         }
         $tasks = $list->orderBy('id desc');
         $list = $tasks->offset(($page - 1) * $size)->limit($size)
             ->asArray()->all();
 
         $pages = new Pagination(['totalCount' => $tasks->count(), 'pageSize' => $size]);
-        return $this->render('list', [
-            'list'  => $list,
-            'pages' => $pages,
-            'audit' => $auditProjects,
-        ]);
+
+        return $this->render(
+            'list',
+            [
+                'list' => $list,
+                'pages' => $pages,
+                'audit' => $auditProjects,
+            ]
+        );
     }
 
     /**
@@ -56,7 +62,8 @@ class TaskController extends Controller {
      * @param $projectId 没有projectId则显示列表
      * @return string
      */
-    public function actionSubmit($projectId = null) {
+    public function actionSubmit($projectId = null)
+    {
 
         if (!$projectId) {
             // 显示所有项目列表
@@ -64,9 +71,13 @@ class TaskController extends Controller {
                 ->leftJoin(Group::tableName(), '`group`.`project_id`=`project`.`id`')
                 ->where(['project.status' => Project::STATUS_VALID, '`group`.`user_id`' => $this->uid])
                 ->asArray()->all();
-            return $this->render('select-project', [
-                'projects' => $projects,
-            ]);
+
+            return $this->render(
+                'select-project',
+                [
+                    'projects' => $projects,
+                ]
+            );
         }
 
         $task = new Task();
@@ -92,19 +103,24 @@ class TaskController extends Controller {
                 $task->project_id = $projectId;
                 $task->status = $status;
                 if ($task->save()) {
-                    $title = '上线审核申请 ['.$task->project->name.']';
+                    $title = '上线审核申请 ['.$task->project->name.'] [版本号:'.$task->commit_id.']';
                     $message = $task->user->realname.'申请 ['.$task->project->name.'] 部署上线,请相关管理员审核!';
-                    DingTalk::sendMsg($title, $message,DingTalk::TYPE_APPLY);
+                    DingTalk::sendMsg($title, $message, DingTalk::TYPE_APPLY);
+
                     return $this->redirect('@web/task/');
                 }
             }
         }
 
         $tpl = $conf->repo_type == Project::REPO_GIT ? 'submit-git' : 'submit-svn';
-        return $this->render($tpl, [
-            'task' => $task,
-            'conf' => $conf,
-        ]);
+
+        return $this->render(
+            $tpl,
+            [
+                'task' => $task,
+                'conf' => $conf,
+            ]
+        );
     }
 
     /**
@@ -113,7 +129,8 @@ class TaskController extends Controller {
      * @return string
      * @throws \Exception
      */
-    public function actionDelete($taskId) {
+    public function actionDelete($taskId)
+    {
         $task = Task::findOne($taskId);
         if (!$task) {
             throw new \Exception(yii::t('task', 'unknown deployment bill'));
@@ -126,7 +143,9 @@ class TaskController extends Controller {
             throw new \Exception(yii::t('task', 'can\'t delele the job which is done'));
         }
 
-        if (!$task->delete()) throw new \Exception(yii::t('w', 'delete failed'));
+        if (!$task->delete()) {
+            throw new \Exception(yii::t('w', 'delete failed'));
+        }
         $this->renderJson([]);
 
     }
@@ -137,7 +156,8 @@ class TaskController extends Controller {
      * @return string
      * @throws \Exception
      */
-    public function actionRollback($taskId) {
+    public function actionRollback($taskId)
+    {
         $this->task = Task::findOne($taskId);
         if (!$this->task) {
             throw new \Exception(yii::t('task', 'unknown deployment bill'));
@@ -165,14 +185,16 @@ class TaskController extends Controller {
         $rollbackTask->status = $status;
         $rollbackTask->action = Task::ACTION_ROLLBACK;
         $rollbackTask->link_id = $this->task->ex_link_id;
-        $rollbackTask->title = $this->task->title . ' - ' . yii::t('task', 'rollback');
+        $rollbackTask->title = $this->task->title.' - '.yii::t('task', 'rollback');
         if ($rollbackTask->save()) {
             $url = $conf->audit == Project::AUDIT_YES
                 ? '/task/'
-                : '/walle/deploy?taskId=' . $rollbackTask->id;
-            $this->renderJson([
-                'url' => $url,
-            ]);
+                : '/walle/deploy?taskId='.$rollbackTask->id;
+            $this->renderJson(
+                [
+                    'url' => $url,
+                ]
+            );
         } else {
             $this->renderJson([], -1, yii::t('task', 'create a rollback job failed'));
         }
@@ -184,7 +206,8 @@ class TaskController extends Controller {
      * @param $id
      * @param $operation
      */
-    public function actionTaskOperation($id, $operation) {
+    public function actionTaskOperation($id, $operation)
+    {
         $task = Task::findOne($id);
         if (!$task) {
             static::renderJson([], -1, yii::t('task', 'unknown deployment bill'));
@@ -196,7 +219,7 @@ class TaskController extends Controller {
 
         $task->status = $operation ? Task::STATUS_PASS : Task::STATUS_REFUSE;
         $task->save();
-        static::renderJson(['status' => \Yii::t('w', 'task_status_' . $task->status)]);
+        static::renderJson(['status' => \Yii::t('w', 'task_status_'.$task->status)]);
     }
 
 }
