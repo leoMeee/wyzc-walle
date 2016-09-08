@@ -54,6 +54,7 @@ class Svn extends Command {
         // 先更新
         $versionSvnDir = rtrim(Project::getDeployWorkspace($task->link_id), '/');
         $cmd[] = sprintf('cd %s ', $versionSvnDir);
+        $cmd[] = $this->_getSvnCmd('svn cleanup');
         $cmd[] = $this->_getSvnCmd(sprintf('svn up -q --force -r %d', $task->commit_id));
 
         $command = join(' && ', $cmd);
