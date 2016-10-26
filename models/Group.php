@@ -110,6 +110,19 @@ class Group extends \yii\db\ActiveRecord
     }
 
     /**
+     * 获取用户参与的项目
+     *
+     * @param $uid
+     * @return array
+     */
+    public static function getUserProjectIds($uid) {
+        return static::find()
+            ->select(['project_id'])
+            ->where(['user_id' => $uid])
+            ->column();
+    }
+
+    /**
      * 获取用户可以审核的项目
      *
      * @param $uid

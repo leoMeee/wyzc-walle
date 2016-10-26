@@ -30,10 +30,11 @@ class TaskController extends Controller
             ->with('project')
             ->where(['user_id' => $this->uid]);
 
-        // 有审核权限的任务
-        $auditProjects = Group::getAuditProjectIds($this->uid);
-        if ($auditProjects) {
-            $list->orWhere(['project_id' => $auditProjects]);
+        // 用户参与的任务
+        $userProjects = Group::getUserProjectIds($this->uid);
+
+        if ($userProjects) {
+            $list->orWhere(['project_id' => $userProjects]);
         }
 
         $kw = \Yii::$app->request->post('kw');
@@ -45,7 +46,7 @@ class TaskController extends Controller
             ->asArray()->all();
 
         $pages = new Pagination(['totalCount' => $tasks->count(), 'pageSize' => $size]);
-
+        $auditProjects = Group::getAuditProjectIds($this->uid);
         return $this->render(
             'list',
             [
